@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block header %}
+
+<div id="small-logo" class="container-fluid">
+	<div class="row">
+		<div class="badge badge-dark md-auto mx-auto">
+			<img src="{{ url_for('static', filename = 'img/vinyl_96px.png') }}" align="center" alt="vinyl record"/>
+			<!-- <h2 class="display-5">Sognity!</h2> -->
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div id="spinning-overlay">
+	<div id="spinner-container">
+		<div class="text-center">
+			<div class="spinner-grow text-primary" role="status" id="spinner">
+				<span class="sr-only">Loading...</span>
+			</div>
+			<p class="spinning-info">
+				Calculating sentiment and fitting UMAP model ...
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+
+	<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+		<div class="carousel-inner">
+
+			<div class="carousel-item active">
+
+				<div class="container">
+					<div class="jumbotron bg-dark text-light part">
+						<h1 class="display-1">Sognity!</h1>
+						<p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+						<hr class="my-4 text-light bg-light">
+						<a class="btn btn-primary btn-lg" href="#gogogo" role="button" id="switch-view">Let's go</a>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="carousel-item">
+
+				<div class="container">
+					<div class="jumbotron bg-dark text-light part">
+						<h2 class="display-3">Search</h2>
+						<p class="lead">You can find any song on spotify by their title or their <code>trackId</code></p>
+						<hr class="my-4 text-light bg-light">
+						<input pattern=".{3,}" type="text" class="form-control" id="songName" name="songName" aria-describedby="songHelp" focused="focused">
+						<br />
+						<a class="btn btn-primary btn-lg" href="#sucheWuche" role="button" id="search-btn">Search</a>
+					</div>
+				</div>
+
+			</div>
+			<div class="carousel-item" id="search-results-item">
+				<h2 class="display-3 text-center">Results</h2>
+				<div class="container-fluid" style="padding: 0 4em;">
+					<div class="row" id="search-results">
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+
+{% endblock %}
