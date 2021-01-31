@@ -12,6 +12,7 @@ class SpotifyInterface:
     def __init__(self):
         self.spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
         self.limit = 24
+        self.test_playlist = "5ULAnTPk479ty7PGEY84AL"
 
     def search(self, title):
         return self.spotify.search(title, limit = self.limit, type = "track")["tracks"]["items"]
@@ -24,3 +25,10 @@ class SpotifyInterface:
 
     def features(self, track_id):
         return self.spotify.audio_features([track_id])
+
+    def get_tracks_from_playlist(self, playlist_id):
+        return list(map(lambda t: t["track"]["id"], self.spotify.playlist(playlist_id)["tracks"]["items"]))
+
+# si = SpotifyInterface()
+# p = si.get_tracks_from_playlist(si.test_playlist)
+# print(p)

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block header %}
+
+<div id="small-logo" class="container-fluid">
+	<div class="row">
+		<div class="badge badge-dark md-auto mx-auto">
+			<img src="{{ url_for('static', filename = 'img/vinyl_96px.png') }}" align="center" alt="vinyl record"/>
+			<!-- <h2 class="display-5">Sognity!</h2> -->
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<br />
+	<br />
+	<div id="song-viz"></div>
+
+	<div class="frame-box" style="width: 500px; height: 500px; margin: auto;">
+	<!-- {% for block in data %}
+		<div style="background-color: {{ block['highlight_color'] }}; width: {{ block['size'] }}px; height: {{ block['size'] }}px; float: left; display: inline-block;">
+
+		</div>
+	{% endfor %} -->
+	</div>
+</div>
+
+
+{% endblock %}
