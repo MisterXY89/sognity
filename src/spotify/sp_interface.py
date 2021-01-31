@@ -20,6 +20,9 @@ class SpotifyInterface:
     def get_info(self, track_id):
         return self.spotify.track(track_id)
 
+    def get_playlist(self, playlist_id):
+        return self.spotify.playlist(playlist_id)
+
     def analysis(self, track_id):
         return self.spotify.audio_analysis(track_id)
 
@@ -27,8 +30,19 @@ class SpotifyInterface:
         return self.spotify.audio_features([track_id])
 
     def get_tracks_from_playlist(self, playlist_id):
-        return list(map(lambda t: t["track"]["id"], self.spotify.playlist(playlist_id)["tracks"]["items"]))
+        return list(map(lambda t: t["track"]["id"], self.get_playlist(playlist_id)["tracks"]["items"]))
+
+    def get_title(self, uri):
+        item_id = uri.split(":")[-1]
+        if "track" in uri:
+            return self.get_info(item_id)["name"]
+        elif "playlist" in uri:
+            return self.get_playlist(item_id)["name"]
+        return f"uri not set properly: {uri}"
+
 
 # si = SpotifyInterface()
-# p = si.get_tracks_from_playlist(si.test_playlist)
-# print(p)
+# spotify:track:74yc92Sz8uASKnWdLmls6w
+# spotify:playlist:1YRbXuA7PLZepcqDTal8Cj
+# t = si.get_info("74yc92Sz8uASKnWdLmls6w")
+# p = si.get_playlist("1YRbXuA7PLZepcqDTal8Cj")

@@ -97,3 +97,8 @@ h1, h2, h3 {
   top: unset;
   transform: unset;
 } */
+
+.lyrics {
+  font-family: monospace;
+  font-size: 0.9em;
+}

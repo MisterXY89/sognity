@@ -3,13 +3,13 @@ function show_results(res_list) {
 	let search_results = $("#search-results");
 	let html = "";
 	res_list.forEach((track, index) => {
-		search_results.append(`<div class='col-2'>
+		search_results.append(`<div class='col-3' style='margin-bottom: 1.5em !important;'>
 				<div class="">
 				  <img class="card-img-top" src="${track.album_image}" alt="album cover">
 				  <div class="card-body bg-dark text-light">
 				    <a href="${track.href}" target="blank_"><h5 class="card-title">${track.track_name}</h5></a>
 				    <p class="card-text">by ${track.artists}, ${track.album_name}</p>
-				    <a href="#select-${index}" id="result-no-${index}" class="btn btn-outline-light select-search-result">Select</a>
+				    <a href="#select-${index}" id="${track.uri}" name="uri[${index}]" class="btn btn-outline-light select-search-result">Select</a>
 				  </div>
 				</div>
 			</div>`);
@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", evt => {
 					res_list.push({
 						track_name: track.name,
 						track_id: track.uri.split(":").slice(-1)[0],
+						uri: track.uri,
 						album_name: track.album.name,
 						album_image: track.album.images[1].url,
 						href: track.href,
@@ -80,8 +81,9 @@ document.addEventListener("DOMContentLoaded", evt => {
 
 	// select_search_result_btns.on('click', evt => {
 	$(document).on('click', '.select-search-result', function () {
-		let source = $(this).attr("id");
-		console.log(source);
+		let uri = $(this).attr("id");
+		console.log(uri);
+		window.location = `/result?uri=${uri}`;
 	});
 
 

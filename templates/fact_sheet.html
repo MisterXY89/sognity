@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block header %}
+
+<div id="small-logo" class="container-fluid">
+	<div class="row">
+		<div class="badge badge-dark md-auto mx-auto">
+			<img src="{{ url_for('static', filename = 'img/vinyl_96px.png') }}" align="center" alt="vinyl record"/>
+			<!-- <h2 class="display-5">Sognity!</h2> -->
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<br />
+	<br />
+	<div class="row">
+		<div class="col-7 lyrics">
+				<h2 class="display-5">{{ data["media"]["title"] }}</h2>
+				{{ data["media"]["lyrics"] | safe }}
+		</div>
+		<div class="col-5">
+			<h2 class="display-5">Meta</h2>
+			<div class="row">
+				<div class="col-6">
+					<img src="{{ data['media']['album']['image_url_md'] }}" alt="{{ data['media']['album']['name'] }} album cover" width="100%">
+				</div>
+				<div class="col-6">
+					<div id="song-treemap"></div>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-12">
+					<audio controls style="width: 100%;">
+						<source src="{{ data['media']['preview_url'] }}" type="audio/mpeg">
+ 						Your browser does not support the audio tag.
+					</audio>
+				</div>
+			</div>
+			<br />
+			<table class="table table-dark">
+			  <tbody>
+			    <tr>
+			      <th scope="row">Name</th>
+			      <td>{{ data["media"]["title"] }}</td>
+			    </tr>
+					<tr>
+			      <th scope="row">Artist</th>
+			      <td>{{ data["media"]["artist"] }}</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">Album</th>
+			      <td>{{ data["media"]["album"]["name"] }}</td>
+			    </tr>
+					<tr>
+			      <th scope="row">Length</th>
+			      <td>{{ data["media"]["length"] }}</td>
+			    </tr>
+					<tr>
+			      <th scope="row">Valence</th>
+			      <td>{{ data["analysis"]["valence"] }}</td>
+			    </tr>
+					<tr>
+			      <th scope="row">Energy</th>
+			      <td>{{ data["analysis"]["energy"] }}</td>
+			    </tr>
+					<tr>
+			      <th scope="row">Danceability</th>
+			      <td>{{ data["analysis"]["danceability"] }}</td>
+			    </tr>
+					<tr>
+			      <th scope="row">Sentiment</th>
+			      <td>{{ data["analysis"]["sentiment_string"] }}</td>
+			    </tr>
+					<tr>
+			      <th scope="row">Sentiment Scores</th>
+			      <td>{{ data["analysis"]["sentiment_scores"] }}</td>
+			    </tr>
+					<tr>
+			      <th scope="row">Spotify</th>
+			      <td><a href='{{ data["media"]["href"] }}' target="_blank">{{ data["media"]["href"] }}</a></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+
+document.addEventListener("DOMContentLoaded", evt => {
+
+	gen_treemap('{{ data["treemap"]["selector"] }}',
+							'{{ data["media"]["uri"] }}',
+							{{ data["treemap"]["height"] }},
+							{{ data["treemap"]["width"] }},
+							'{{ data["analysis"]["sentiment_string"] }}');
+
+});
+
+</script>
+
+{% endblock %}
