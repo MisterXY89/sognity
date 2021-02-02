@@ -5,7 +5,7 @@ import io
 import csv
 from flask import make_response
 
-from app_init import app, resource_path, sp, sp_art, sw_lyrics, sentiment
+from app_init import app, resource_path, sp, sp_art, sw_lyrics, sentiment, lastFM
 from src.helper import ms_to_mins
 
 
@@ -75,6 +75,8 @@ def result():
 	lyrics = sw_lyrics.get_lyrics(title, artists[0]).replace("\n", "<br>")
 	analysis_data = sp.features(item_id)[0]
 	sentiment_scores = sentiment.get_scores(lyrics)
+	song_info = lastFM.get(track=title, artist=artists[0], method="track.getInfo")
+	similar_tracks = lastFM.get(track=title, artist=artist[0])
 	data = {
 		"media" : {
 			"uri": uri,
@@ -89,6 +91,8 @@ def result():
 			"length": ms_to_mins(media_data["duration_ms"]),
 			"href": analysis_data["track_href"],
 			"preview_url": media_data["preview_url"],
+			"wiki": song_info["track"]["wiki"],
+			"similar": "",
 		},
 		"treemap": {
 			"selector": "#song-treemap",
@@ -101,7 +105,7 @@ def result():
 			"danceability": analysis_data["danceability"],
 			"sentiment_string": sentiment.get_sentiment_string(sentiment_scores),
 			"sentiment_scores": sentiment_scores,
-		}
+		},
 	}
 	# print(data)
 	return render_template("fact_sheet.html", data=data)
