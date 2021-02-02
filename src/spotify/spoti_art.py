@@ -60,11 +60,7 @@ class SpotiArt:
             hsv_color = Color(hex=main_color).hsv
             new_saturation = hsv_color[1] * (1-abs(row["loudness"]*(tempo/100)))
             new_hex = Color(hsv=(hsv_color[0], new_saturation, hsv_color[2])).hex
-            # art_list.append({
-            #     "size": section_size,
-            #     "main_color": main_color,
-            #     "highlight_color": new_hex
-            # })
+
             treemap_list.append({
                 # "name": f"{track_id[:2]}_{i}",
                 "name": i,
