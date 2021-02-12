@@ -2,7 +2,7 @@
 import requests
 import pandas as pd
 
-from last_fm_config import LAST_FM_API_KEY
+from .last_fm_config import LAST_FM_API_KEY
 
 class LastFMInterface:
     """

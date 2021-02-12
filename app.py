@@ -75,8 +75,9 @@ def result():
 	lyrics = sw_lyrics.get_lyrics(title, artists[0]).replace("\n", "<br>")
 	analysis_data = sp.features(item_id)[0]
 	sentiment_scores = sentiment.get_scores(lyrics)
-	song_info = lastFM.get(track=title, artist=artists[0], method="track.getInfo")
-	similar_tracks = lastFM.get(track=title, artist=artist[0])
+	song_info = lastFM.get(track=title, artist=artists[0], method="track.getInfo")["track"]
+	summary = song_info["wiki"]["summary"].replace("\n", "<br>").replace("Read more on Last.fm", "").replace("</a>.", "</a>")
+	similar_tracks = lastFM.get(track=title, artist=artists[0])
 	data = {
 		"media" : {
 			"uri": uri,
@@ -91,8 +92,8 @@ def result():
 			"length": ms_to_mins(media_data["duration_ms"]),
 			"href": analysis_data["track_href"],
 			"preview_url": media_data["preview_url"],
-			"wiki": song_info["track"]["wiki"],
-			"similar": "",
+			"summary": summary,
+			"similar_tracks": similar_tracks,
 		},
 		"treemap": {
 			"selector": "#song-treemap",

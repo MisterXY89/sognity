@@ -18,9 +18,14 @@
 	<br />
 	<br />
 	<div class="row">
-		<div class="col-7 lyrics">
+		<div class="col-7">
 				<h2 class="display-5">{{ data["media"]["title"] }}</h2>
-				{{ data["media"]["lyrics"] | safe }}
+				<p>
+						{{ data ["media"]["summary"] | safe }}
+				</p>
+				<div class="lyrics">
+					{{ data["media"]["lyrics"] | safe }}
+				</div>
 		</div>
 		<div class="col-5">
 			<h2 class="display-5">Meta</h2>
