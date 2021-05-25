@@ -8,7 +8,7 @@ colorutils==0.3.0
 Flask==1.1.2
 idna==2.10
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 joblib==1.0.0
 MarkupSafe==1.1.1
 nltk==3.5
